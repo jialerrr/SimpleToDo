@@ -49,13 +49,15 @@ public class MainActivity extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (((etTaskPos.getText().toString().isEmpty()) == false)){
+                if ((etTaskPos.getText().toString().isEmpty() == false)){
                     String taskName = etTaskPos.getText().toString();
                     tasks.add(taskName);
                     aaTask.notifyDataSetChanged();
+                    etTaskPos.setText("");
                 }
                 else {
                     Toast.makeText(MainActivity.this, "Enter a task!", Toast.LENGTH_SHORT).show();
+                    etTaskPos.setText("");
                 }
             }
         });
@@ -63,16 +65,27 @@ public class MainActivity extends AppCompatActivity {
         btnDel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (tasks.isEmpty() == false){
+                if ((etTaskPos.getText().toString().isEmpty())){
+                    Toast.makeText(MainActivity.this, "No index number entered", Toast.LENGTH_SHORT).show();
+                    etTaskPos.setText("");
+                }
+                else if (Integer.parseInt(etTaskPos.getText().toString()) >= tasks.size()){
+                    Toast.makeText(MainActivity.this, "Wrong index number", Toast.LENGTH_SHORT).show();
+                    etTaskPos.setText("");
+                }
+                else if (tasks.isEmpty() == false){
                     int pos = Integer.parseInt(etTaskPos.getText().toString());
                     tasks.remove(pos);
                     aaTask.notifyDataSetChanged();
+                    etTaskPos.setText("");
                 }
                 else {
                     Toast.makeText(MainActivity.this, "There are no tasks to delete!", Toast.LENGTH_SHORT).show();
+                    etTaskPos.setText("");
                 }
             }
         });
+
 
         btnClear.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,12 +109,14 @@ public class MainActivity extends AppCompatActivity {
                         btnDel.setEnabled(false);
                         etTaskPos.setHint("Type in a new task here");
                         etTaskPos.setInputType(InputType.TYPE_CLASS_TEXT);
+                        etTaskPos.setText("");
                         break;
                     case 1:
                         btnAdd.setEnabled(false);
                         btnDel.setEnabled(true);
                         etTaskPos.setHint("Type in the index of the task to be removed");
                         etTaskPos.setInputType(InputType.TYPE_CLASS_NUMBER);
+                        etTaskPos.setText("");
                         break;
                 }
             }

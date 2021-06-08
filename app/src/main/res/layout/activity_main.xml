@@ -22,7 +22,8 @@
         android:fontFamily="@font/amaranth"
         android:hint="@string/type_in_a_new_task_here"
         android:inputType="textPersonName"
-        android:textColor="#FFFFFF" />
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF" />
 
     <LinearLayout
         android:layout_width="match_parent"
